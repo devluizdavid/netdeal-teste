@@ -1,0 +1,27 @@
+version: '3.1'
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'db_netdeal'
+      MYSQL_USER: 'user_netdeal'
+      MYSQL_PASSWORD: '123456'
+      MYSQL_ROOT_PASSWORD: '123456'
+    ports:
+      - '30306:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '30306'
+      # Where our data will be persisted
+    volumes:
+      - my-db:/var/lib/mysql
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 9000:8080
+# Names our volume
+volumes:
+  my-db:
+
