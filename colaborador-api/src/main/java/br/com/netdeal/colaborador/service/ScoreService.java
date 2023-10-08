@@ -12,7 +12,6 @@ import java.util.regex.Pattern;
 public class ScoreService {
 
     public int calcularScoreSenhaTotal(String senhaInformada) {
-        System.out.println("senhaInformada = "+senhaInformada);
         int scoreFinal = 0;
 
         Integer itensRequeridos = calcularScoreSenhaItensRequeridos(senhaInformada);
@@ -34,14 +33,6 @@ public class ScoreService {
         int quantidadeNumeroSimbolosNoMeio = calcularQuantidadeNumeroSimbolosNoMeio(senhaInformada);
 
 
-
-        System.out.println("numeroCaracteres = "+numeroCaracteres);
-        System.out.println("quantidadeDeNumeros = "+quantidadeDeNumeros);
-        System.out.println("quantidadeDeLetrasMaisculas = "+quantidadeDeLetrasMaisculas);
-        System.out.println("quantidadeDeLetrasMinusculas = "+quantidadeDeLetrasMinusculas);
-        System.out.println("quantidadeNumeroSimbolosNoMeio = "+quantidadeNumeroSimbolosNoMeio);
-        System.out.println("itensRequeridos = "+itensRequeridos);
-
         scoreFinal += itensRequeridos;
         scoreFinal += numeroCaracteres;
         scoreFinal += quantidadeDeNumeros;
@@ -50,7 +41,7 @@ public class ScoreService {
         scoreFinal += quantidadeDeLetrasMinusculas;
         scoreFinal += quantidadeNumeroSimbolosNoMeio;
 
-        System.out.println("scoreFinal antes da dedução - "+scoreFinal);
+
         //Deduções
         if (soPossuiLetra(senhaInformada)) {
             scoreFinal -= senhaInformada.length();
@@ -66,17 +57,6 @@ public class ScoreService {
         int quantidadeSequencialDeDuasMaisculas = quantidadeSequencialDeDuasMaisculas(senhaInformada);
         int quantidadeSequencialDeDuasMinusculas = quantidadeSequencialDeDuasMinusculas(senhaInformada);
         int quantidadeCaracteresRepetidos = contadorDeCaracteres(senhaInformada);
-
-        System.out.println("quantidadeSequencialDeTresLetras = "+quantidadeSequencialDeTresLetras);
-        System.out.println("quantidadeSequencialDeTresNumeros = "+quantidadeSequencialDeTresNumeros);
-        System.out.println("quantidadeSequencialDeTresSimbolos = "+quantidadeSequencialDeTresSimbolos);
-        System.out.println("quantidadeSequencialDeDoisNumeros = "+quantidadeSequencialDeDoisNumeros);
-        System.out.println("quantidadeSequencialDeDuasMaisculas = "+quantidadeSequencialDeDuasMaisculas);
-        System.out.println("quantidadeSequencialDeDuasMinusculas = "+quantidadeSequencialDeDuasMinusculas);
-        System.out.println("quantidadeSequencialDeDuasMinusculas = "+quantidadeCaracteresRepetidos);
-
-
-
         if (quantidadeSequencialDeTresLetras > 0) scoreFinal -= quantidadeSequencialDeTresLetras;
         if (quantidadeSequencialDeTresNumeros > 0) scoreFinal -= quantidadeSequencialDeTresNumeros;
         if (quantidadeSequencialDeDoisNumeros > 0) scoreFinal -= quantidadeSequencialDeDoisNumeros;
