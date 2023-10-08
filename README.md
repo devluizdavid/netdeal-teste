@@ -38,5 +38,4 @@ Após realizar o deploy da aplicação e subir com êxito, será disponibilizado
 http://localhost:8083/api/swagger-ui.html
 ```
 
-Informe o usuário: admin e senha: 123456
 
