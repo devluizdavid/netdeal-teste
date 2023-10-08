@@ -1,4 +1,4 @@
-# colaborador-netdeal-api
+# colaborador-netdeal
 
 
 ## Requisitos Api
@@ -30,7 +30,7 @@ Caso já possua o mysql e queira utilizar a instalação já existente, altere o
 colaborador-api\src\main\resources\application.properties
 ```
 
-## Executando a aplicação localmente
+## Executando a api localmente
 
 Existem várias maneiras de executar um aplicativo Spring Boot em sua máquina local. Uma maneira é executar o método `main` na classe `com.codebrain.sales.SalesApplication` do seu IDE.
 
@@ -49,7 +49,7 @@ http://localhost:8083/api/swagger-ui.html
 ```
 
 
-## Subindo aplicação front-end
+## Executando o front-end localmente
 
 Acesse a pasta do front colaborador-front e execute o seguintes comandos:
 
