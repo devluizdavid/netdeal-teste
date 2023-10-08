@@ -1,0 +1,17 @@
+<h1>Lista de colaboradores</h1>
+<table width="100%" cellspacing="0" border="1">
+    <thead>
+      <tr> 
+        <th>Name</th>
+        <th align="center">Score</th>
+        <th>Cor</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="colaborador in colaboradorList">
+        <td>{{ colaborador.nome }}</td>
+        <td  align="center">{{ colaborador.score }}</td>
+        <td  align="center" ng-style="{'background-color': colaborador.cor}">{{ colaborador.situacao }}</td>
+      </tr>
+    </tbody>
+  </table>

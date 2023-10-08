@@ -8,21 +8,12 @@ import java.math.BigDecimal;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ColaboradorDto {
-
-    private Long id;
+public class LoginRequest {
 
     @NotEmpty(message = "{name.notempty}")
-    private String nome;
+    private String login;
 
     @NotEmpty(message = "{name.notempty}")
     private String senha;
 
-    private Long colaboradorPai;
-
-    private BigDecimal score;
-
-    private String cor;
-
-    private String situacao;
 }

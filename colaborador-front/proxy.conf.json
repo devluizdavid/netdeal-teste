@@ -1,0 +1,8 @@
+const proxy = [
+    {
+      context: '/',
+      target: 'http://localhost:8083',
+      pathRewrite: {'^/' : ''}
+    }
+  ];
+  module.exports = proxy;
