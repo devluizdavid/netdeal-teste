@@ -29,6 +29,7 @@ public class UsuarioModel implements UserDetails, Serializable {
     private Long id;
 
     @NotEmpty
+    @Column(unique=true)
     private String login;
 
     @NotEmpty
@@ -39,9 +40,11 @@ public class UsuarioModel implements UserDetails, Serializable {
 
     private Integer score;
 
+    private String hierarquia;
+
     @ManyToOne
     @JoinColumn(name = "usuario_pai_id")
-    private UsuarioModel colaboradorPai;
+    private UsuarioModel usuarioPai;
 
 
     @Override

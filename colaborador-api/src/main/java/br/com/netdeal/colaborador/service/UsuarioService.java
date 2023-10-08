@@ -55,15 +55,33 @@ public class UsuarioService {
         usuarioModel.setSenha(senhaCriptografada);
         if (usuarioRequest.getColaboradorPai() != null) {
             UsuarioModel usuarioPai = usuarioRepository.findById(usuarioRequest.getColaboradorPai()).orElseThrow(() -> new BusinessException(MessageCode.ERRO_NENHUM_REGISTRO_ENCONTRADO));
-            usuarioModel.setColaboradorPai(usuarioPai);
+            usuarioModel.setUsuarioPai(usuarioPai);
+            String hierarquia = "";
+            if (usuarioPai.getHierarquia() == null) hierarquia = usuarioPai.getId().toString();
+            else  hierarquia = usuarioPai.getHierarquia();
+            usuarioModel.setHierarquia(hierarquia);
         }
 
+        usuarioRepository.save(usuarioModel);
+        usuarioModel.setHierarquia(usuarioModel.getHierarquia() +"." +usuarioModel.getId());
         usuarioRepository.save(usuarioModel);
         return usuarioAdapter.getUsuarioResponse(usuarioModel);
     }
 
-    public UsuarioResponse getUsuario(Long usuarioId) {
+    public UsuarioResponse getUsuarioById(Long usuarioId) {
         UsuarioModel usuario = usuarioRepository.findById(usuarioId).orElseThrow(() -> new BusinessException(MessageCode.ERRO_NENHUM_REGISTRO_ENCONTRADO));
         return usuarioAdapter.getUsuarioResponse(usuario);
+    }
+
+    public UsuarioModel findByLogin(String login) {
+        return usuarioRepository.findByLogin(login).orElseThrow(() -> new BusinessException(MessageCode.ERRO_NENHUM_REGISTRO_ENCONTRADO));
+    }
+
+    public List<UsuarioResponse> getUsuariosFilhos(Long usuarioId) {
+        UsuarioModel usuarioModel = usuarioRepository.findById(usuarioId).orElseThrow(() -> new BusinessException(MessageCode.ERRO_NENHUM_REGISTRO_ENCONTRADO));
+        String hieraquia = usuarioModel.getHierarquia() == null ? ""+usuarioModel.getId() : usuarioModel.getHierarquia();
+        List<UsuarioModel> usuariosFilhos = usuarioRepository.findByHierarquiaStartingWithOrderByHierarquia(hieraquia);
+        List<UsuarioResponse> usuarioResponses = usuariosFilhos.stream().map(usuarioFilho -> usuarioAdapter.getUsuarioResponse(usuarioFilho)).collect(Collectors.toList());
+        return usuarioResponses;
     }
 }
