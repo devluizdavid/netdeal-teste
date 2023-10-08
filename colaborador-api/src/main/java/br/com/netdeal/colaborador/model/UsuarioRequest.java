@@ -1,14 +1,12 @@
-package br.com.netdeal.colaborador.dto;
+package br.com.netdeal.colaborador.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
 
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class ColaboradorResponse {
+public class UsuarioRequest {
 
     private Long id;
 
@@ -16,9 +14,12 @@ public class ColaboradorResponse {
     private String nome;
 
     @NotEmpty(message = "{name.notempty}")
+    private String login;
+
+    @NotEmpty(message = "{name.notempty}")
     private String senha;
 
-    private BigDecimal score;
+    private Integer score;
 
-
+    private Long colaboradorPai;
 }

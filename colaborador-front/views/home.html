@@ -1,17 +1,38 @@
+<form ng-submit="salvarUsuario()">
+  <div>
+    <label for="login">Nome:</label>
+    <input type="text" id="nome" ng-model="nome" required />
+  </div>
+  <div>
+    <label for="login">Login:</label>
+    <input type="text" id="login" ng-model="login" required />
+  </div>
+  <div>
+    <label for="senha">Senha:</label>
+    <input type="password" id="senha" ng-model="senha" required />
+  </div>
+  <div>
+    <button type="submit">Entrar</button>
+  </div>
+</form>
+
 <h1>Lista de colaboradores</h1>
+
 <table width="100%" cellspacing="0" border="1">
-    <thead>
-      <tr> 
-        <th>Name</th>
-        <th align="center">Score</th>
-        <th>Cor</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="colaborador in colaboradorList">
-        <td>{{ colaborador.nome }}</td>
-        <td  align="center">{{ colaborador.score }}</td>
-        <td  align="center" ng-style="{'background-color': colaborador.cor}">{{ colaborador.situacao }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th align="center">Score</th>
+      <th>Cor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="colaborador in colaboradorList">
+      <td>{{ colaborador.nome }}</td>
+      <td align="center">{{ colaborador.score }}</td>
+      <td align="center" ng-style="{'background-color': colaborador.cor}">
+        {{ colaborador.complexidade }}
+      </td>
+    </tr>
+  </tbody>
+</table>

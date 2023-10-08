@@ -25,7 +25,6 @@ public class UserDetailsServiceImpl  implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String login)  {
         UsuarioModel usuario = usuarioRepository.findByLogin(login).orElseThrow(() -> new BusinessException(MessageCode.ERRO_NENHUM_REGISTRO_ENCONTRADO));
-
         if (usuario==null) {
             throw new UsernameNotFoundException("Usuário não encontrado");
         } else {

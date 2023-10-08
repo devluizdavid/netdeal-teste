@@ -1,6 +1,5 @@
 package br.com.netdeal.colaborador;
 
-import br.com.netdeal.colaborador.service.ColaboradorService;
 import br.com.netdeal.colaborador.service.ScoreService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

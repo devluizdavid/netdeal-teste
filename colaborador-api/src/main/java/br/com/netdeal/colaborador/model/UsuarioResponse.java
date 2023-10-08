@@ -15,5 +15,9 @@ public class UsuarioResponse {
 
     private Long colaboradorPai;
 
-    private BigDecimal score;
+    private Integer score;
+
+    private String cor;
+
+    private String complexidade;
 }

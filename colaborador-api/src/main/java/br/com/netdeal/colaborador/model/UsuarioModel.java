@@ -25,7 +25,7 @@ public class UsuarioModel implements UserDetails, Serializable {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotEmpty
@@ -37,7 +37,7 @@ public class UsuarioModel implements UserDetails, Serializable {
     @NotEmpty(message = "{name.notempty}")
     private String nome;
 
-    private BigDecimal score;
+    private Integer score;
 
     @ManyToOne
     @JoinColumn(name = "usuario_pai_id")

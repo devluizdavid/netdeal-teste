@@ -2,8 +2,7 @@ package br.com.netdeal.colaborador.controller;
 
 import br.com.netdeal.colaborador.dto.LoginRequest;
 import br.com.netdeal.colaborador.model.UsuarioResponse;
-import br.com.netdeal.colaborador.model.UsuarioModel;
-import br.com.netdeal.colaborador.service.UsuarioService;
+import br.com.netdeal.colaborador.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +20,7 @@ public class LoginController {
 
 
     @Autowired
-    private UsuarioService usuarioService;
+    private LoginService usuarioService;
 
     @PostMapping
     public ResponseEntity<UsuarioResponse> login(

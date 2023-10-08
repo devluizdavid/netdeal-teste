@@ -1,6 +1,5 @@
 package br.com.netdeal.colaborador.repository;
 
-import br.com.netdeal.colaborador.model.ColaboradorModel;
 import br.com.netdeal.colaborador.model.UsuarioModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
