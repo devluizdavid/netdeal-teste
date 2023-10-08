@@ -53,6 +53,11 @@ public class UsuarioService {
         usuarioModel.setScore(scoreSenhaCalculado);
         String senhaCriptografada =new BCryptPasswordEncoder().encode(usuarioRequest.getSenha().trim());
         usuarioModel.setSenha(senhaCriptografada);
+        if (usuarioRequest.getColaboradorPai() != null) {
+            UsuarioModel usuarioPai = usuarioRepository.findById(usuarioRequest.getColaboradorPai()).orElseThrow(() -> new BusinessException(MessageCode.ERRO_NENHUM_REGISTRO_ENCONTRADO));
+            usuarioModel.setColaboradorPai(usuarioPai);
+        }
+
         usuarioRepository.save(usuarioModel);
         return usuarioAdapter.getUsuarioResponse(usuarioModel);
     }

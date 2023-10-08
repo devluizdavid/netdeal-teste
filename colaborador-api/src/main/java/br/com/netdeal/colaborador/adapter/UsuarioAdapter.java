@@ -15,6 +15,9 @@ public class UsuarioAdapter {
         usuarioResponse.setScore(usuario.getScore());
         usuarioResponse.setCor(retornarCorDaSenha(usuario.getScore()));
         usuarioResponse.setComplexidade(retornaComplexidade(usuario.getScore()));
+        if (usuario.getColaboradorPai() != null) {
+            usuarioResponse.setColaboradorPai(usuario.getColaboradorPai().getId());
+        }
 
         return usuarioResponse;
     }

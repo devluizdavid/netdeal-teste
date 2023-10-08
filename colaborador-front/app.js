@@ -20,17 +20,19 @@ app.controller("HomeController", function ($scope, $http, $location) {
   var encodedCredentials = btoa(
     sessionStorage.credentialLogin + ":" + sessionStorage.credentialSenha
   );
-  console.log(sessionStorage.credentialLogin);
-  console.log(sessionStorage.credentialSenha);
+
   var config = {
     headers: {
       Authorization: "Basic " + encodedCredentials,
     },
   };
 
-  $http.get(BASE_URL_API + "/usuario", config).then(function (response) {
-    $scope.colaboradorList = response.data;
-  });
+  
+  $scope.listaUsuario = function () {
+    $http.get(BASE_URL_API + "/usuario", config).then(function (response) {
+      $scope.colaboradorList = response.data;
+    });
+  };
 
   $scope.salvarUsuario = function () {
     var dadosDoUsuario = {
@@ -42,15 +44,18 @@ app.controller("HomeController", function ($scope, $http, $location) {
 
     $http
       .post(BASE_URL_API + "/usuario", dadosDoUsuario, config)
-      .then(function ($location) {
-        $location.path("/home");
+      .then(function (response) {
+        console.log("Listou os dados");
+        $scope.listaUsuario();
       })
       .catch(function (error) {
         alert("Erro de autenticação:", error);
         console.error("Erro de autenticação:", error);
-        $location.path("/home");
+        $scope.listaUsuario();
       });
   };
+
+  $scope.listaUsuario();
 });
 
 app.controller("LoginController", function ($scope, $location, $http) {
