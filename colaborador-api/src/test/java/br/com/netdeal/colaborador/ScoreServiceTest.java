@@ -12,7 +12,6 @@ public class ScoreServiceTest {
     @Autowired
     private ScoreService scoreService;
 
-    /*
     @Test
     public void showSuccess_ScoreFinalSoComLetrasMinusculas() {
         Integer scoreFinalSenhaSoComLetrasMinusculas =
@@ -52,7 +51,6 @@ public class ScoreServiceTest {
         Assertions.assertEquals(72, scoreFinalSenhaComTodosRequisitos);
     }
 
-    */
     @Test
     public void showSuccess_ScoreFinalComEspacos() {
         Integer scoreFinalSenhaComTodosRequisitos = scoreService.calcularScoreSenhaTotal("Nova senha e tal");
@@ -65,6 +63,24 @@ public class ScoreServiceTest {
         Assertions.assertEquals(100, scoreFinalSenhaComTodosRequisitos);
     }
 
+    @Test
+    public void showSuccess_ScoreFinalNumeros() {
+        Integer scoreFinalSenhaComTodosRequisitos = scoreService.calcularScoreSenhaTotal("45383615");
+        Assertions.assertEquals(21, scoreFinalSenhaComTodosRequisitos);
+    }
+
+    @Test
+    public void showSuccess_ScoreFinalNumerosELetraMaiscula() {
+        Integer scoreFinalSenhaComTodosRequisitos = scoreService.calcularScoreSenhaTotal("S8037011");
+        Assertions.assertEquals(71, scoreFinalSenhaComTodosRequisitos);
+    }
+
+
+    @Test
+    public void showSuccess_ScoreFinalNumerosMaisculoEMinusculo() {
+        Integer scoreFinalSenhaComTodosRequisitos = scoreService.calcularScoreSenhaTotal("hnqmuBj0");
+        Assertions.assertEquals(54, scoreFinalSenhaComTodosRequisitos);
+    }
 
 
 }

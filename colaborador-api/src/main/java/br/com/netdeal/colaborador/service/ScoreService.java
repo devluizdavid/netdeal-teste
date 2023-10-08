@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 public class ScoreService {
 
     public int calcularScoreSenhaTotal(String senhaInformada) {
+        System.out.println("senhaInformada = "+senhaInformada);
         int scoreFinal = 0;
 
         Integer itensRequeridos = calcularScoreSenhaItensRequeridos(senhaInformada);
@@ -32,6 +33,15 @@ public class ScoreService {
         }
         int quantidadeNumeroSimbolosNoMeio = calcularQuantidadeNumeroSimbolosNoMeio(senhaInformada);
 
+
+
+        System.out.println("numeroCaracteres = "+numeroCaracteres);
+        System.out.println("quantidadeDeNumeros = "+quantidadeDeNumeros);
+        System.out.println("quantidadeDeLetrasMaisculas = "+quantidadeDeLetrasMaisculas);
+        System.out.println("quantidadeDeLetrasMinusculas = "+quantidadeDeLetrasMinusculas);
+        System.out.println("quantidadeNumeroSimbolosNoMeio = "+quantidadeNumeroSimbolosNoMeio);
+        System.out.println("itensRequeridos = "+itensRequeridos);
+
         scoreFinal += itensRequeridos;
         scoreFinal += numeroCaracteres;
         scoreFinal += quantidadeDeNumeros;
@@ -40,6 +50,7 @@ public class ScoreService {
         scoreFinal += quantidadeDeLetrasMinusculas;
         scoreFinal += quantidadeNumeroSimbolosNoMeio;
 
+        System.out.println("scoreFinal antes da dedução - "+scoreFinal);
         //Deduções
         if (soPossuiLetra(senhaInformada)) {
             scoreFinal -= senhaInformada.length();
@@ -55,6 +66,17 @@ public class ScoreService {
         int quantidadeSequencialDeDuasMaisculas = quantidadeSequencialDeDuasMaisculas(senhaInformada);
         int quantidadeSequencialDeDuasMinusculas = quantidadeSequencialDeDuasMinusculas(senhaInformada);
         int quantidadeCaracteresRepetidos = contadorDeCaracteres(senhaInformada);
+
+        System.out.println("quantidadeSequencialDeTresLetras = "+quantidadeSequencialDeTresLetras);
+        System.out.println("quantidadeSequencialDeTresNumeros = "+quantidadeSequencialDeTresNumeros);
+        System.out.println("quantidadeSequencialDeTresSimbolos = "+quantidadeSequencialDeTresSimbolos);
+        System.out.println("quantidadeSequencialDeDoisNumeros = "+quantidadeSequencialDeDoisNumeros);
+        System.out.println("quantidadeSequencialDeDuasMaisculas = "+quantidadeSequencialDeDuasMaisculas);
+        System.out.println("quantidadeSequencialDeDuasMinusculas = "+quantidadeSequencialDeDuasMinusculas);
+        System.out.println("quantidadeSequencialDeDuasMinusculas = "+quantidadeCaracteresRepetidos);
+
+
+
         if (quantidadeSequencialDeTresLetras > 0) scoreFinal -= quantidadeSequencialDeTresLetras;
         if (quantidadeSequencialDeTresNumeros > 0) scoreFinal -= quantidadeSequencialDeTresNumeros;
         if (quantidadeSequencialDeDoisNumeros > 0) scoreFinal -= quantidadeSequencialDeDoisNumeros;
@@ -62,6 +84,9 @@ public class ScoreService {
         if (quantidadeSequencialDeDuasMinusculas > 0) scoreFinal -= quantidadeSequencialDeDuasMinusculas;
         if (quantidadeCaracteresRepetidos > 0) scoreFinal -= quantidadeCaracteresRepetidos;
         if (quantidadeSequencialDeTresSimbolos > 0) scoreFinal -= (quantidadeSequencialDeTresSimbolos * 3);
+
+
+
         if (scoreFinal > 100) scoreFinal = 100;
         return scoreFinal;
 
@@ -143,27 +168,15 @@ public class ScoreService {
     private Integer quantidadeSequencialDeDoisNumeros(String senhaInformada) {
         if (senhaInformada.length() < 2) return 0;
         int contador = 0;
-        for (int posicao = 0; posicao < senhaInformada.length(); posicao++) {
-            if (senhaInformada.length() - posicao < 2) continue;
-            String sequencia = senhaInformada.substring(posicao, posicao + 2);
-            //if (posicao -1 == senhaInformada.length()) continue;
-            boolean sequenciaDeNumeros = true;
-            int atual = -1;
-            for (char character : sequencia.toCharArray()) {
-                if (!Character.isDigit(character)) {
-                    sequenciaDeNumeros = false;
-                    break;
-                }
-                if (atual == -1) {
-                    atual = Integer.parseInt("" + character);
-                    continue;
-                }
-                int numero = Integer.parseInt("" + character);
-                if (atual == 9 && numero == 0 || numero - atual == 1) atual = numero;
-                else sequenciaDeNumeros = false;
+        char caracterAnterior = 'A';
+        for (char character : senhaInformada.toCharArray()) {
+            if (Character.isDigit(character) && Character.isDigit(caracterAnterior)) {
+                contador++;
+                caracterAnterior=character;
             }
-            if (sequenciaDeNumeros) contador++;
+            caracterAnterior=character;
         }
+
         return (contador * 2);
     }
 

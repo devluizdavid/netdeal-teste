@@ -24,7 +24,11 @@ Primeiramente para executar o projeto, você precisa subir o container Docker ac
 docker-compose up -d
 ```
 
-Caso já possua o mysql e queira utilizar um banco já existente, altere os dados de conexão do arquivo properties
+Caso já possua o mysql e queira utilizar a instalação já existente, altere os dados de conexão no arquivo 
+
+```shell
+colaborador-api\src\main\resources\application.properties
+```
 
 ## Executando a aplicação localmente
 
