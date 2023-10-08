@@ -34,18 +34,18 @@ public class UsuarioAdapter {
     }
 
     private String retornarCorDaSenha(Integer score) {
-        if (score < 50 ) return "red";
-        if (score > 50 && score < 70 ) return "yellow";
-        if (score > 70 && score < 90 ) return "green";
+        if (score < 50) return "red";
+        if (score > 50 && score < 70) return "yellow";
+        if (score > 70 && score < 90) return "green";
         if (score > 9) return "blue";
         return "white";
 
     }
 
     private String retornaComplexidade(Integer score) {
-        if (score < 50 ) return "Ruim";
-        if (score > 50 && score < 70 ) return "Mediana";
-        if (score > 70 && score < 90 ) return "Boa";
+        if (score < 50) return "Ruim";
+        if (score > 50 && score < 70) return "Mediana";
+        if (score > 70 && score < 90) return "Boa";
         if (score > 9) return "Forte";
         return "Fraca";
     }

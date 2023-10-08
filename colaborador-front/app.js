@@ -45,13 +45,7 @@ app.controller("HomeController", function ($scope, $http, $location) {
     sessionStorage.nomeUsuario = null;
     $location.path("/login");
   }
-
-  $scope.alterar = function (colaborador) {
-    $scope.senha = colaborador.senha;
-    $scope.nome = colaborador.nome;
-    $scope.login = colaborador.login;
-  };
-
+ 
   $scope.salvarUsuario = function () {
     var dadosDoUsuario = {
       nome: $scope.nome,
@@ -65,10 +59,14 @@ app.controller("HomeController", function ($scope, $http, $location) {
       .then(function (response) {
         console.log("Listou os dados");
         $scope.listaUsuario();
+        $scope.messagem = "Usuário cadastrado com sucesso.";
+        $scope.messagemCor = "green";
       })
       .catch(function (error) {
         alert("Erro de autenticação:", error);
         console.error("Erro de autenticação:", error);
+        $scope.messagem = "Erro ao cadastrar o usuário";
+        $scope.messagemCor = "red";
         $scope.listaUsuario();
       });
   };

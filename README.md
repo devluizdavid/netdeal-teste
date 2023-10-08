@@ -18,6 +18,8 @@ Primeiramente para executar o projeto, você precisa subir o container Docker ac
 docker-compose up -d
 ```
 
+Caso já possua o mysql e queira utilizar um banco já existente, altere os dados de conexão do arquivo properties
+
 ## Executando a aplicação localmente
 
 Existem várias maneiras de executar um aplicativo Spring Boot em sua máquina local. Uma maneira é executar o método `main` na classe `com.codebrain.sales.SalesApplication` do seu IDE.
@@ -33,8 +35,8 @@ mvn spring-boot:run
 Após realizar o deploy da aplicação e subir com êxito, será disponibilizado uma url com as apis necessárias geradas pela aplicação. Acesse pelo navegador de sua preferência a url:
 
 ```shell
-http://localhost:8083/swagger-ui.html
+http://localhost:8083/api/swagger-ui.html
 ```
 
-Informe o usuário: teste e senha: 123456
+Informe o usuário: admin e senha: 123456
 

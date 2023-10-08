@@ -24,17 +24,21 @@
     <div class="form-inline-group">
       <button type="submit" class="form-inline-group">Salvar</button> 
     </div>
+    <div class="form-inline-group">
+      <div class="messagem-inline"  ng-style="{'color': messagemCor}" ng-if="messagem">{{ messagem }}</div>
+    </div>
+   
   </form>
+  
 </div>
 <div ng-if="colaboradorList.length > 0"></div>
-<ul class="list-group">
+<ol class="list-group"  style="list-style: none;">
   <li class="list-group-item" ng-repeat="colaborador in colaboradorList">
     <table width="100%" cellspacing="0">
       <tbody>
         <tr >
           <td width="50%"><span class="invisivel">
             {{ colaborador.hierarquia}}</span>
-            <input type="checkbox"/>
             {{colaborador.nome }}</td>
           <td  width="25%" align="center">
             <b   ng-style="{'color': 'gray'}">{{ colaborador.score }}%</b></td>
@@ -44,6 +48,6 @@
         </tr>
       </tbody>
   </table></li> 
-</ul>
+</ol>
 </div>
 </div>

@@ -1,26 +1,23 @@
 package br.com.netdeal.colaborador.service;
 
-import org.apache.commons.validator.routines.RegexValidator;
+
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
 public class ScoreService {
 
-    public Integer calcularScoreSenhaTotal(String senhaInformada) {
-        Integer scoreFinal = 0;
-        System.out.println("senhaInformada = "+senhaInformada);
+    public int calcularScoreSenhaTotal(String senhaInformada) {
+        int scoreFinal = 0;
 
         Integer itensRequeridos = calcularScoreSenhaItensRequeridos(senhaInformada);
         int numeroCaracteres = senhaInformada.length() * 4;
         int quantidadeDeNumeros = contarTiposDeCaracteres("\\d", senhaInformada);
-        if (!soPossuiNumero( senhaInformada))  quantidadeDeNumeros = quantidadeDeNumeros * 4;
+        if (!soPossuiNumero(senhaInformada)) quantidadeDeNumeros = quantidadeDeNumeros * 4;
         else quantidadeDeNumeros = 0;
 
         int quantidadeDeSimbolos = contarCaracteresEspeciais(senhaInformada);
@@ -33,18 +30,7 @@ public class ScoreService {
         if (quantidadeDeLetrasMinusculas > 0) {
             quantidadeDeLetrasMinusculas = (senhaInformada.length() - quantidadeDeLetrasMinusculas) * 2;
         }
-
         int quantidadeNumeroSimbolosNoMeio = calcularQuantidadeNumeroSimbolosNoMeio(senhaInformada);
-
-        System.out.println("numeroCaracteres = "+numeroCaracteres);
-        System.out.println("quantidadeDeLetrasMaisculas = "+quantidadeDeLetrasMaisculas);
-        System.out.println("quantidadeDeLetrasMinusculas = "+quantidadeDeLetrasMinusculas);
-        System.out.println("quantidadeDeNumeros = "+quantidadeDeNumeros);
-        System.out.println("quantidadeDeSimbolos = "+quantidadeDeSimbolos);
-        System.out.println("quantidadeNumeroSimbolosNoMeio = "+quantidadeNumeroSimbolosNoMeio);
-        System.out.println("itensRequeridos = "+itensRequeridos);
-
-
 
         scoreFinal += itensRequeridos;
         scoreFinal += numeroCaracteres;
@@ -54,17 +40,13 @@ public class ScoreService {
         scoreFinal += quantidadeDeLetrasMinusculas;
         scoreFinal += quantidadeNumeroSimbolosNoMeio;
 
-        System.out.println("scoreFinal sem deduções = "+scoreFinal);
         //Deduções
-        if (soPossuiLetra( senhaInformada)) {
-            System.out.println("soPossuiLetra = "+senhaInformada.length());
+        if (soPossuiLetra(senhaInformada)) {
             scoreFinal -= senhaInformada.length();
         }
-        if (soPossuiNumero( senhaInformada)) {
+        if (soPossuiNumero(senhaInformada)) {
             scoreFinal -= senhaInformada.length();
-            System.out.println("soPossuiNumero = "+senhaInformada.length());
         }
-
 
         int quantidadeSequencialDeTresLetras = quantidadeSequencialDeTresLetras(senhaInformada);
         int quantidadeSequencialDeTresNumeros = quantidadeSequencialDeTresNumeros(senhaInformada);
@@ -73,38 +55,26 @@ public class ScoreService {
         int quantidadeSequencialDeDuasMaisculas = quantidadeSequencialDeDuasMaisculas(senhaInformada);
         int quantidadeSequencialDeDuasMinusculas = quantidadeSequencialDeDuasMinusculas(senhaInformada);
         int quantidadeCaracteresRepetidos = contadorDeCaracteres(senhaInformada);
-
-
-        System.out.println("quantidadeCaracteresRepetidos = "+quantidadeCaracteresRepetidos);
-
-        System.out.println("quantidadeSequencialDeDuasMaisculas = "+quantidadeSequencialDeDuasMaisculas);
-        System.out.println("quantidadeSequencialDeDuasMinusculas = "+quantidadeSequencialDeDuasMinusculas);
-        System.out.println("quantidadeSequencialDeDoisNumeros = "+quantidadeSequencialDeDoisNumeros);
-        System.out.println("quantidadeSequencialDeTresLetras = "+quantidadeSequencialDeTresLetras);
-        System.out.println("quantidadeSequencialDeTresNumeros = "+quantidadeSequencialDeTresNumeros);
-        System.out.println("quantidadeSequencialDeTresSimbolos = "+quantidadeSequencialDeTresSimbolos);
-
-        if (quantidadeSequencialDeTresLetras > 0 ) scoreFinal -= quantidadeSequencialDeTresLetras;
-        if (quantidadeSequencialDeTresNumeros > 0) scoreFinal -= quantidadeSequencialDeTresNumeros ;
-        if (quantidadeSequencialDeDoisNumeros > 0) scoreFinal -= quantidadeSequencialDeDoisNumeros ;
-        if (quantidadeSequencialDeDuasMaisculas > 0) scoreFinal -= quantidadeSequencialDeDuasMaisculas ;
-        if (quantidadeSequencialDeDuasMinusculas > 0) scoreFinal -= quantidadeSequencialDeDuasMinusculas ;
-        if (quantidadeCaracteresRepetidos > 0) scoreFinal -= quantidadeCaracteresRepetidos ;
-        if (quantidadeSequencialDeTresSimbolos > 0 ) scoreFinal -= (quantidadeSequencialDeTresSimbolos * 3);
+        if (quantidadeSequencialDeTresLetras > 0) scoreFinal -= quantidadeSequencialDeTresLetras;
+        if (quantidadeSequencialDeTresNumeros > 0) scoreFinal -= quantidadeSequencialDeTresNumeros;
+        if (quantidadeSequencialDeDoisNumeros > 0) scoreFinal -= quantidadeSequencialDeDoisNumeros;
+        if (quantidadeSequencialDeDuasMaisculas > 0) scoreFinal -= quantidadeSequencialDeDuasMaisculas;
+        if (quantidadeSequencialDeDuasMinusculas > 0) scoreFinal -= quantidadeSequencialDeDuasMinusculas;
+        if (quantidadeCaracteresRepetidos > 0) scoreFinal -= quantidadeCaracteresRepetidos;
+        if (quantidadeSequencialDeTresSimbolos > 0) scoreFinal -= (quantidadeSequencialDeTresSimbolos * 3);
         if (scoreFinal > 100) scoreFinal = 100;
         return scoreFinal;
 
     }
 
 
-
     private Integer quantidadeSequencialDeTresLetras(String senhaInformada) {
         String alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZABC";
         if (senhaInformada.length() < 3) return 0;
         int contador = 0;
-        for (int posicao = 0; posicao < senhaInformada.length(); posicao ++ ) {
+        for (int posicao = 0; posicao < senhaInformada.length(); posicao++) {
             if (senhaInformada.length() - posicao < 3) continue;
-            String sequencia = senhaInformada.substring(posicao, posicao +3);
+            String sequencia = senhaInformada.substring(posicao, posicao + 3);
             //if (posicao -1 == senhaInformada.length()) continue;
             boolean sequenciaDeLetras = alfabeto.contains(sequencia);
             if (sequenciaDeLetras) contador++;
@@ -115,56 +85,29 @@ public class ScoreService {
     private Integer quantidadeSequencialDeTresNumeros(String senhaInformada) {
         if (senhaInformada.length() < 3) return 0;
         int contador = 0;
-        for (int posicao = 0; posicao < senhaInformada.length(); posicao ++ ) {
+        for (int posicao = 0; posicao < senhaInformada.length(); posicao++) {
             if (senhaInformada.length() - posicao < 3) continue;
-            String sequencia = senhaInformada.substring(posicao, posicao +3);
+            String sequencia = senhaInformada.substring(posicao, posicao + 3);
             //if (posicao -1 == senhaInformada.length()) continue;
             boolean sequenciaDeNumeros = true;
-            int atual=-1;
+            int atual = -1;
             for (char character : sequencia.toCharArray()) {
                 if (!Character.isDigit(character)) {
                     sequenciaDeNumeros = false;
                     break;
                 }
                 if (atual == -1) {
-                    atual = Integer.parseInt(""+character);
+                    atual = Integer.parseInt("" + character);
                     continue;
                 }
-                int numero = Integer.parseInt(""+character);
+                int numero = Integer.parseInt("" + character);
                 if (atual == 9 && numero == 0 || numero - atual == 1) atual = numero;
-                else sequenciaDeNumeros=false;
+                else sequenciaDeNumeros = false;
             }
             if (sequenciaDeNumeros) contador++;
         }
         return (contador * 3);
     }
-
-
-
-
-    private int quantidadeCaracteresRepetidos(String senhaInformada) {
-        // Converter a string para minúsculas para garantir a comparação case insensitive
-        String textoLowerCase = senhaInformada.toLowerCase();
-
-        // Usar um mapa para rastrear a contagem de cada caractere
-        Map<Character, Integer> contagemCaracteres = new HashMap<>();
-
-        for (char caractere : textoLowerCase.toCharArray()) {
-            if (Character.isLetter(caractere)) {
-                contagemCaracteres.put(caractere, contagemCaracteres.getOrDefault(caractere, 0) + 1);
-            }
-        }
-
-        int quantidadeRepeatCharacters = 0;
-        for (int contagem : contagemCaracteres.values()) {
-            if (contagem > 1) {
-                quantidadeRepeatCharacters += contagem;
-            }
-        }
-
-        return quantidadeRepeatCharacters;
-    }
-
 
     private Integer quantidadeSequencialDeDuasMinusculas(String senhaInformada) {
         int quantidadeSequencias = 0;
@@ -200,24 +143,24 @@ public class ScoreService {
     private Integer quantidadeSequencialDeDoisNumeros(String senhaInformada) {
         if (senhaInformada.length() < 2) return 0;
         int contador = 0;
-        for (int posicao = 0; posicao < senhaInformada.length(); posicao ++ ) {
+        for (int posicao = 0; posicao < senhaInformada.length(); posicao++) {
             if (senhaInformada.length() - posicao < 2) continue;
-            String sequencia = senhaInformada.substring(posicao, posicao +2);
+            String sequencia = senhaInformada.substring(posicao, posicao + 2);
             //if (posicao -1 == senhaInformada.length()) continue;
             boolean sequenciaDeNumeros = true;
-            int atual=-1;
+            int atual = -1;
             for (char character : sequencia.toCharArray()) {
                 if (!Character.isDigit(character)) {
                     sequenciaDeNumeros = false;
                     break;
                 }
                 if (atual == -1) {
-                    atual = Integer.parseInt(""+character);
+                    atual = Integer.parseInt("" + character);
                     continue;
                 }
-                int numero = Integer.parseInt(""+character);
+                int numero = Integer.parseInt("" + character);
                 if (atual == 9 && numero == 0 || numero - atual == 1) atual = numero;
-                else sequenciaDeNumeros=false;
+                else sequenciaDeNumeros = false;
             }
             if (sequenciaDeNumeros) contador++;
         }
@@ -228,9 +171,9 @@ public class ScoreService {
         if (senhaInformada.length() < 3) return 0;
         String sequenciaDeSimbolosOficial = "!@#$%&*()-_=+[]{};:'\",.<>?/|\\";
         int contador = 0;
-        for (int posicao = 0; posicao < senhaInformada.length(); posicao ++ ) {
+        for (int posicao = 0; posicao < senhaInformada.length(); posicao++) {
             if (senhaInformada.length() - posicao < 3) continue;
-            String sequencia = senhaInformada.substring(posicao, posicao +3);
+            String sequencia = senhaInformada.substring(posicao, posicao + 3);
             //if (posicao -1 == senhaInformada.length()) continue;
             boolean sequenciaDeSimbolos = sequenciaDeSimbolosOficial.contains(sequencia);
             if (sequenciaDeSimbolos) contador++;
@@ -244,12 +187,12 @@ public class ScoreService {
         Pattern pattern = Pattern.compile("[^a-zA-Z0-9\\s]+");
 
         int contador = 0;
-        for (int posicao = 0; posicao < senhaInformada.length(); posicao ++ ) {
+        for (int posicao = 0; posicao < senhaInformada.length(); posicao++) {
             if (senhaInformada.length() - posicao < 3) continue;
-            String sequencia = senhaInformada.substring(posicao, posicao +3);
+            String sequencia = senhaInformada.substring(posicao, posicao + 3);
             //if (posicao -1 == senhaInformada.length()) continue;
-            char caracter  = sequencia.charAt(1);
-            boolean isSimbolo = pattern.matcher(""+caracter).find();
+            char caracter = sequencia.charAt(1);
+            boolean isSimbolo = pattern.matcher("" + caracter).find();
             if (Character.isDigit(caracter) || isSimbolo) {
                 contador++;
             }
@@ -280,13 +223,13 @@ public class ScoreService {
             }
         }
 
-        return (contador *6);
+        return (contador * 6);
     }
 
     private boolean soPossuiNumero(String senhaInformada) {
         boolean isSoNumero = true;
         for (char caractere : senhaInformada.toCharArray()) {
-            if (!Character.isDigit(caractere)  && !Character.isWhitespace(caractere)) {
+            if (!Character.isDigit(caractere) && !Character.isWhitespace(caractere)) {
                 isSoNumero = false;
                 break;
             }
@@ -314,12 +257,12 @@ public class ScoreService {
 
         int itensRequeridos = 0;
 
-        if (patternLetrasMinusculas.matcher(senhaInformada).find()) itensRequeridos ++;
-        if (patternLetrasMaisculas.matcher(senhaInformada).find()) itensRequeridos ++;
-        if (patternLetrasNumeros.matcher(senhaInformada).find()) itensRequeridos ++;
-        if (patternCaracteresEspeciais.matcher(senhaInformada).find()) itensRequeridos ++;
+        if (patternLetrasMinusculas.matcher(senhaInformada).find()) itensRequeridos++;
+        if (patternLetrasMaisculas.matcher(senhaInformada).find()) itensRequeridos++;
+        if (patternLetrasNumeros.matcher(senhaInformada).find()) itensRequeridos++;
+        if (patternCaracteresEspeciais.matcher(senhaInformada).find()) itensRequeridos++;
         if (itensRequeridos > 2 && senhaInformada.length() > 7) {
-            itensRequeridos ++;
+            itensRequeridos++;
             itensRequeridos *= 2;
             return itensRequeridos;
         }
@@ -351,19 +294,14 @@ public class ScoreService {
                     bCharExists = true;
                     double arrPwdLenDdouble = (double) arrPwdLen;
                     double valor = arrPwdLenDdouble / (b - a);
-                    if (valor < 0) valor = valor *-1;
-                    nRepInc += valor ;
+                    if (valor < 0) valor = valor * -1;
+                    nRepInc += valor;
                 }
             }
 
             if (bCharExists) {
                 nRepChar++;
                 nUnqChar = arrPwdLen - nRepChar;
-                /*if (nUnqChar != 0) {
-                    nRepInc = (int) Math.ceil(nRepInc / nUnqChar);
-                } else {
-                    nRepInc = (int) Math.ceil(nRepInc);
-                }*/
                 nRepInc = (nUnqChar != 0) ? (int) Math.ceil(nRepInc / nUnqChar) : (int) Math.ceil(nRepInc);
             }
         }
