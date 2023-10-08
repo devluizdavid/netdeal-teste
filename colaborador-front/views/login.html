@@ -1,14 +1,19 @@
-<h1>Login</h1>
-<form ng-submit="submit()">
-  <div>
-    <label for="login">Usuário:</label>
-    <input type="text" id="login" ng-model="login" required />
+<div style="align-items: center">
+  <div class="login-container">
+    <form ng-submit="submit()">
+      <img src="assets/img/netdeal.png" width="300" />
+      <div class="form-group">
+        <label for="login">Login:</label>
+        <input type="text" id="login" ng-model="login" required />
+      </div>
+      <div class="form-group">
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" ng-model="senha" required />
+      </div>
+      <div class="form-group">
+        <button type="submit">Login</button>
+      </div>
+    </form>
+    <div class="error-message" ng-if="errorMessage">{{ errorMessage }}</div>
   </div>
-  <div>
-    <label for="senha">Senha:</label>
-    <input type="password" id="senha" ng-model="senha" required />
-  </div>
-  <div>
-    <button type="submit">Entrar</button>
-  </div>
-</form>
+</div>

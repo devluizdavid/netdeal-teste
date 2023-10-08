@@ -1,38 +1,49 @@
-<form ng-submit="salvarUsuario()">
-  <div>
-    <label for="login">Nome:</label>
-    <input type="text" id="nome" ng-model="nome" required />
-  </div>
-  <div>
-    <label for="login">Login:</label>
-    <input type="text" id="login" ng-model="login" required />
-  </div>
-  <div>
-    <label for="senha">Senha:</label>
-    <input type="password" id="senha" ng-model="senha" required />
-  </div>
-  <div>
-    <button type="submit">Entrar</button>
-  </div>
-</form>
+<div class="navbar">
+  <a href="home">Seja bem vindo {{ nomeUsuario }}</a>
+  <a  href="/" class="right">Sair</a>
+</div>
 
-<h1>Lista de colaboradores</h1>
+<!-- Conteúdo da Página -->
+<div style="padding: 20px;">
+   
+  <div class="form-container-inline">
 
-<table width="100%" cellspacing="0" border="1">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th align="center">Score</th>
-      <th>Cor</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="colaborador in colaboradorList">
-      <td>{{ colaborador.nome }}</td>
-      <td align="center">{{ colaborador.score }}</td>
-      <td align="center" ng-style="{'background-color': colaborador.cor}">
-        {{ colaborador.complexidade }}
-      </td>
-    </tr>
-  </tbody>
-</table>
+  <form ng-submit="salvarUsuario()" class="form-inline">
+    <div class="form-inline-group">
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" name="nome" ng-model="nome" required>
+    </div>
+    <div class="form-inline-group">
+      <label for="login">Login:</label>
+      <input type="text" id="login" name="login" ng-model="login" required>
+    </div>
+    <div class="form-inline-group">
+      <label for="senha">Senha:</label>
+      <input type="password" id="senha" name="senha" ng-model="senha" required>
+    </div> 
+    <div class="form-inline-group">
+      <button type="submit" class="form-inline-group">Salvar</button> 
+    </div>
+  </form>
+</div>
+<div ng-if="colaboradorList.length > 0"></div>
+<ul class="list-group">
+  <li class="list-group-item" ng-repeat="colaborador in colaboradorList">
+    <table width="100%" cellspacing="0">
+      <tbody>
+        <tr >
+          <td width="50%"><span class="invisivel">
+            {{ colaborador.hierarquia}}</span>
+            <input type="checkbox"/>
+            {{colaborador.nome }}</td>
+          <td  width="25%" align="center">
+            <b   ng-style="{'color': 'gray'}">{{ colaborador.score }}%</b></td>
+          <td width="25%" align="center" >
+            <b  ng-style="{'color': colaborador.cor}">{{ colaborador.complexidade }}</b>
+          </td>
+        </tr>
+      </tbody>
+  </table></li> 
+</ul>
+</div>
+</div>
