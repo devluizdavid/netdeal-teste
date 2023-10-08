@@ -1,13 +1,19 @@
 # colaborador-netdeal-api
 
 
-## Requisitos
+## Requisitos Api
 
 Para executar a aplicação você precisa de :
 
 - [JDK 17] (https://www.oracle.com/br/java/technologies/javase/jdk17-archive-downloads.html)
 - [Maven 3] (https://maven.apache.org)
 - [Docker] (https://docs.docker.com/get-docker/)
+
+## Requisitos front-end
+
+Para executar a aplicação você precisa de :
+- [Node.js](https://nodejs.org/) e [npm](https://www.npmjs.com/) para gerenciar as dependências do projeto.
+
 
 ## Subindo o docker
 
@@ -39,3 +45,27 @@ http://localhost:8083/api/swagger-ui.html
 ```
 
 
+## Subindo aplicação front-end
+
+Acesse a pasta do front colaborador-front e execute o seguintes comandos:
+
+```shell
+npm install
+```
+
+Logo após rode o comando para subir o projeto.
+
+```shell
+http-server --cors
+```
+
+Após o servidor subir acesse a url do front para navegação
+
+```shell
+http://localhost:8080
+```
+
+O acesso padrão é: 
+
+login: admin 
+senha: 123456
