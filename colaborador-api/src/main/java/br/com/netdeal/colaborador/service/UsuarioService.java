@@ -28,12 +28,6 @@ public class UsuarioService {
     @Autowired
     private ScoreService scoreService;
 
-    public List<UsuarioResponse> getUsuarios() {
-        List<UsuarioModel> usuarios = usuarioRepository.findAll();
-        List<UsuarioResponse> usuarioResponses = usuarios.stream().map(usuarioModel -> usuarioAdapter.getUsuarioResponse(usuarioModel)).collect(Collectors.toList());
-        return usuarioResponses;
-    }
-
     public UsuarioResponse update(Long usuarioId, UsuarioRequest usuarioRequest) {
         usuarioRepository.findById(usuarioId).orElseThrow(() -> new BusinessException(MessageCode.ERRO_NENHUM_REGISTRO_ENCONTRADO));
         usuarioRequest.setId(usuarioId);
@@ -83,5 +77,11 @@ public class UsuarioService {
         List<UsuarioModel> usuariosFilhos = usuarioRepository.findByHierarquiaStartingWithOrderByHierarquia(hieraquia);
         List<UsuarioResponse> usuarioResponses = usuariosFilhos.stream().map(usuarioFilho -> usuarioAdapter.getUsuarioResponse(usuarioFilho)).collect(Collectors.toList());
         return usuarioResponses;
+    }
+
+    public List<UsuarioResponse> findAll() {
+        List<UsuarioModel> usuarios = usuarioRepository.findAll();
+        return  usuarios.stream().map(usuario -> usuarioAdapter.getUsuarioResponse(usuario)).collect(Collectors.toList());
+
     }
 }

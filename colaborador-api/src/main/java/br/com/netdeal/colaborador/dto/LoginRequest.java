@@ -7,8 +7,8 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LoginRequest {
  
-    private String login;
+    private String username;
  
-    private String senha;
+    private String password;
 
 }

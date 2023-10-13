@@ -32,12 +32,14 @@ public class LoginController {
     @PostMapping(value = "/token")
     public ResponseEntity<?> getToken(@RequestBody LoginRequest request)  {
 
-        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getLogin(), request.getSenha()));
+        Authentication authenticate =
+                authenticationManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authenticate);
-        String token = service.generateToken(request.getLogin());
+        String token = service.generateToken(request.getUsername());
 
-        UsuarioModel usuario = usuarioService.findByLogin(request.getLogin());
-        return ResponseEntity.ok(new LoginResponse(usuario.getId(), token, usuario.getNome()));
+        UsuarioModel usuario = usuarioService.findByLogin(request.getUsername());
+        return ResponseEntity.ok(new LoginResponse(usuario.getId(), token, usuario.getNome(), usuario.getLogin(), "1.png"));
     }
 
 }

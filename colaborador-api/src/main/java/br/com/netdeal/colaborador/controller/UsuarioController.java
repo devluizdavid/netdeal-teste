@@ -18,6 +18,13 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
+    @GetMapping(value = "/all")
+    public ResponseEntity<List<UsuarioResponse>> getAll() {
+        List<UsuarioResponse> usuarios = usuarioService.findAll();
+        return ResponseEntity.status(HttpStatus.OK).body(usuarios);
+    }
+
+
     @GetMapping(value = "/colaboradores/{usuarioId}")
     public ResponseEntity<List<UsuarioResponse>> getUsuarios(@PathVariable Long usuarioId) {
         List<UsuarioResponse> usuarios = usuarioService.getUsuariosFilhos(usuarioId);
