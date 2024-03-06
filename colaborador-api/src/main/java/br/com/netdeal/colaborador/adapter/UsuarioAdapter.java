@@ -8,6 +8,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class UsuarioAdapter {
 
+    private int test;
+
+    public UsuarioAdapter(int test) {
+        this.test = test;
+    }
+
     public UsuarioResponse getUsuarioResponse(UsuarioModel usuario) {
         UsuarioResponse usuarioResponse = new UsuarioResponse();
         usuarioResponse.setId(usuario.getId());
